@@ -48,6 +48,31 @@ public class UsersServiceImpl implements UsersService{
 			mView.addObject("isSuccess", false);
 		}
 	}
+
+	@Override
+	public void updatePass(UsersDto dto) {
+		dao.updatePwd(dto);
+		
+	}
+
+	@Override
+	public void getInfo(HttpSession session, ModelAndView mView) {
+		//로그인 된 아이디를 session 객체를 이용해서 얻어온다.
+		String id = (String)session.getAttribute("id");
+		UsersDto dto = dao.getData(id);
+		mView.addObject("dto", dto);
+		
+	}
+
+	@Override
+	public void deleteUser(HttpSession session) {
+		//세션에 저장된 회원 아이디를 얻어와서
+		String id =(String)session.getAttribute("id");
+		//삭제
+		dao.delete(id);
+		//로그아웃 처리
+		session.invalidate();
+	}
 	
 }
 

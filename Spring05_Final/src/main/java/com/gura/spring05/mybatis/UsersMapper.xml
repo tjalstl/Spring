@@ -17,6 +17,22 @@
 		FROM users
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
+	<update id="updatePwd" parameterType="usersDto">
+		update users
+		set newPwd=#{newPwd}
+		where id=#{id} and pwd=#{pwd}	
+	</update>
+	<delete id="delete" parameterType="usersDto">
+		delete from users 
+		where id=#{id}
+	</delete>
+	<select id="getData" parameterType="string"
+		resultType="usersDto">
+		SELECT id,pwd,email,profile,
+			TO_CHAR(regdate, 'YY.MM.DD HH24"시"MM"분"') AS regdate
+		FROM users
+		WHERE id=#{id}	
+	</select>
 </mapper>
 
 

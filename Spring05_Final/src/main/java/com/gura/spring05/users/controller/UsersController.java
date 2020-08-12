@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,6 +80,28 @@ public class UsersController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/home.do";
+	}
+	@RequestMapping("/users/private/pwd_update")
+	public String updatePassW(UsersDto dto) {
+		service.updatePass(dto);
+		return "users/private/pwd_update";
+	}
+	@RequestMapping("/users/private/delete")
+	public ModelAndView delelte(HttpServletRequest request, ModelAndView mView) {
+		//서비스에서 사용자 정보를 삭제하고 
+		service.deleteUser(request.getSession());
+		//view 페이지로 forward 이동해서 응답
+		mView.setViewName("users/private/delete");
+		request.getSession().invalidate();
+		return mView;
+		
+	}
+	//개인정보 보기 요청 처리
+	@RequestMapping("/users/private/info")
+	public ModelAndView info(HttpServletRequest request, ModelAndView mView) {
+		service.getInfo(request.getSession(), mView);
+		mView.setViewName("users/private/info");
+		return mView;
 	}
 }
 
