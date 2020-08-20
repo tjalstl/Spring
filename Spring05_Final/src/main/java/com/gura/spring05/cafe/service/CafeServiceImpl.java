@@ -143,7 +143,7 @@ public class CafeServiceImpl implements CafeService{
 		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
 		final int PAGE_ROW_COUNT=5;
 		
-		//보여줄 페이지의 번호
+		//보여줄 페이지의 번호(가장 마지막 페이지)
 		int pageNum=1;
 		
 		//보여줄 페이지 데이터의 시작 ResultSet row 번호
